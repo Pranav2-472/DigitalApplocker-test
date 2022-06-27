@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
     AppLockerService.CommsHandler commsHandler = null;
     ServiceConnection connection;
+    public static boolean UNLOCKED=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +65,13 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(this,ProcessListActivity.class));
         });
         layout.addView(btn2,new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,100));
+        Button btn3 = new Button(this);
+        btn3.setText("Settings");
+        btn3.setOnClickListener(v -> {
+            startActivity(new Intent(this,MainSettingsActivity.class));
+        });
+        layout.addView(btn3,new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,100));
+
         //make sure to check if service already exist
         Intent intent = new Intent(this,AppLockerService.class);
         startService(intent);
@@ -72,6 +80,17 @@ public class MainActivity extends AppCompatActivity {
     public void onStart() {
         Intent intent = new Intent(this, AppLockerService.class);
         serviceConnect(intent);
+        new Thread(() -> {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            runOnUiThread(() -> {
+                if(!UNLOCKED)
+                    startActivity(new Intent(this,ProtectorActivity.class));
+            });
+        }).start();
         super.onStart();
     }
 

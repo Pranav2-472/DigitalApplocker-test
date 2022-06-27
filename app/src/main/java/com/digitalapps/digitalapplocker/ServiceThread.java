@@ -52,13 +52,10 @@ public class ServiceThread extends Thread{
 
                 String pack=stats.getPackageName();
                 long time = (System.currentTimeMillis()%(24*60*60*1000))/1000;
-                for(App app : config.getApps()) {
-                    if(app.name().equals(stats.getPackageName())){
-                        Log.d(stats.getPackageName()+"LastTimeUsed",Long.toString(currentTime - stats.getLastTimeUsed()));
-                    }
-                }
+
                 if(currentTime - stats.getLastTimeUsed()< 1500) {
                     if(stats.getPackageName().equals("com.android.launcher3")) {
+                        MainActivity.UNLOCKED=false;
                         currentlyUnlockedApp=null;
                         continue;
                     }

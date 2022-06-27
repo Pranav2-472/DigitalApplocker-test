@@ -8,11 +8,20 @@ public class Config {
     private String masterpwd;
     public Config(ArrayList<App> apps, String masterpwd) {
         this.apps=apps;
-        this.masterpwd=masterpwd;
+        if(masterpwd!=null && !masterpwd.equals(""))
+            this.masterpwd=masterpwd;
+        else
+            this.masterpwd="";
     }
 
     public String getMasterpwd() {
-        return ""+masterpwd;
+        return masterpwd;
+    }
+    public void setMasterpwd(String pwd) {
+        if(pwd!=null)
+            this.masterpwd=""+pwd;
+        else
+            this.masterpwd="";
     }
 
     public ArrayList<App> getApps() {
