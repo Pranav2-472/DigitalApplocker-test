@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Digital Applocker</string>
+    <string name="LockText">Sorry. You are not allowed to use this app at this time.</string>
+</resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="EmergencyTimes" >
+        <item>1min</item>
+        <item>2min</item>
+        <item>5min</item>
+        <item>10min</item>
+        <item>30min</item>
+        <item>1hr</item>
+    </array>
+</resources>

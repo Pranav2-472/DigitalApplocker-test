@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AppSettings">
+
+    <ScrollView
+        android:id="@+id/AppSettingsView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/AppSettingsLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Switch
+                android:id="@+id/AppLockSwitch"
+                android:layout_width="0dp"
+                android:layout_height="54dp"
+                android:background="@color/BandColor"
+                android:text="Lock App"
+                android:textSize="@dimen/textSize"
+                app:layout_constraintBottom_toTopOf="@+id/TimeLbl"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/TimeLbl"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/DefaultHeight"
+                android:gravity="center_vertical"
+                android:paddingStart="@dimen/DefaultPadding"
+                android:text="Time Span"
+                android:textSize="@dimen/textSize"
+                app:layout_constraintBottom_toTopOf="@+id/startTimeBox"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/AppLockSwitch" />
+
+            <EditText
+                android:id="@+id/startTimeBox"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/DefaultHeight"
+                android:ems="10"
+                android:inputType="time"
+                app:layout_constraintBottom_toTopOf="@+id/passwdLbl"
+                app:layout_constraintEnd_toStartOf="@+id/textView"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/TimeLbl" />
+
+            <EditText
+                android:id="@+id/endTimeBox"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/DefaultHeight"
+                android:ems="10"
+                android:inputType="time"
+                app:layout_constraintBottom_toTopOf="@+id/passwd"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/textView"
+                app:layout_constraintTop_toBottomOf="@+id/TimeLbl" />
+
+            <TextView
+                android:id="@+id/passwdLbl"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:background="@color/BandColor"
+                android:gravity="center_vertical"
+                android:text="Password(optional):"
+                android:textAlignment="center"
+                android:textSize="@dimen/textSize"
+                app:layout_constraintEnd_toStartOf="@+id/passwd"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/startTimeBox" />
+
+            <EditText
+                android:id="@+id/passwd"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/DefaultHeight"
+                android:background="@color/BandColor"
+                android:ems="10"
+                android:inputType="textPassword"
+                android:textSize="@dimen/textSize"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/passwdLbl"
+                app:layout_constraintTop_toBottomOf="@+id/endTimeBox" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/DefaultHeight"
+                android:gravity="center_vertical"
+                android:text=" to "
+                app:layout_constraintEnd_toStartOf="@+id/endTimeBox"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/startTimeBox"
+                app:layout_constraintTop_toBottomOf="@+id/TimeLbl" />
+
+            <TextView
+                android:id="@+id/EmergencyTimeLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/DefaultHeight"
+                android:gravity="center_vertical"
+                android:paddingStart="@dimen/DefaultPadding"
+                android:text="Set Emergency Time  ->"
+                android:textSize="@dimen/textSize"
+                app:layout_constraintEnd_toStartOf="@+id/EmergencyTimeBox"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/passwdLbl" />
+
+            <Spinner
+                android:id="@+id/EmergencyTimeBox"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/DefaultHeight"
+                android:entries="@array/EmergencyTimes"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/EmergencyTimeLabel"
+                app:layout_constraintTop_toBottomOf="@+id/passwdLbl" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
