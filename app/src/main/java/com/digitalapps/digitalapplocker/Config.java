@@ -8,6 +8,7 @@ public class Config {
     private String masterpwd;
     public Config(ArrayList<App> apps, String masterpwd) {
         this.apps=apps;
+
         if(masterpwd!=null && !masterpwd.equals(""))
             this.masterpwd=masterpwd;
         else

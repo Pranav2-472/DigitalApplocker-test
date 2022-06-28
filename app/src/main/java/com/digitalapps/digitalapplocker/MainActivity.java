@@ -34,7 +34,14 @@ public class MainActivity extends AppCompatActivity {
 
         //placeholder code
         int i=0;
-        LinearLayout layout = (LinearLayout) findViewById(R.id.mainlayout);
+        LinearLayout layout = findViewById(R.id.mainlayout);
+        Button btn3 = new Button(this);
+        btn3.setText("Settings");
+        btn3.setOnClickListener(v -> {
+            startActivity(new Intent(this,MainSettingsActivity.class));
+        });
+        layout.addView(btn3,new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,100));
+
         while(i<applist.size()) {
             TextView tv = new TextView(this);
             tv.setTextSize(18);
@@ -53,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
             layout.addView(tv,new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,150));
             i++;
         }
-        Button btn = new Button(this);
+        /*Button btn = new Button(this);
         btn.setText("Click to ping");
         btn.setOnClickListener(v -> {
                 ping(v);
@@ -65,13 +72,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(this,ProcessListActivity.class));
         });
         layout.addView(btn2,new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,100));
-        Button btn3 = new Button(this);
-        btn3.setText("Settings");
-        btn3.setOnClickListener(v -> {
-            startActivity(new Intent(this,MainSettingsActivity.class));
-        });
-        layout.addView(btn3,new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,100));
-
+        */
         //make sure to check if service already exist
         Intent intent = new Intent(this,AppLockerService.class);
         startService(intent);

@@ -54,7 +54,7 @@ public class ServiceThread extends Thread{
                 long time = (System.currentTimeMillis()%(24*60*60*1000))/1000;
 
                 if(currentTime - stats.getLastTimeUsed()< 1500) {
-                    if(stats.getPackageName().equals("com.android.launcher3")) {
+                    if(stats.getPackageName().contains("launcher")) {
                         MainActivity.UNLOCKED=false;
                         currentlyUnlockedApp=null;
                         continue;
@@ -65,10 +65,10 @@ public class ServiceThread extends Thread{
                             break;
                         }
                             if(app.name().equals(pack) && app.getTimeAsLong(1)<time && app.getTimeAsLong(2)>time) {
-                                if (app.name().equals("com.android.launcher3")) {
+                                /*if (app.name().equals("com.android.launcher3")) {
                                     currentlyUnlockedApp = null;
                                     break;
-                                }
+                                }*/
                                 if (!app.name().equals(currentlyUnlockedApp)) {
                                     Intent lockIntent = new Intent(context, LockScreenActivity.class);
                                     if (app.getPasswd() != null)

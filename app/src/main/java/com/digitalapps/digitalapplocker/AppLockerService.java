@@ -1,13 +1,19 @@
 package com.digitalapps.digitalapplocker;
 
 import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.Service;
 import android.app.usage.UsageStats;
 import android.app.usage.UsageStatsManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Binder;
+import android.os.Build;
 import android.os.IBinder;
+
+import androidx.annotation.RequiresApi;
+import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import java.util.List;
@@ -59,15 +65,43 @@ public class AppLockerService extends Service {
         return new CommsHandler();
     }
 
+
+    void loadChannel() {
+
+    }
+
     @Override
     public void onCreate() {
         context = getApplicationContext();
-        Notification serviceNotification = new Notification.Builder(context)
-                .setSmallIcon(com.google.android.material.R.drawable.notification_icon_background)
-                .setContentTitle("Digital AppLocker")
-                .setContentText("Digital AppLocker is monitoring this device")
-                .setPriority(Notification.PRIORITY_DEFAULT)
-                .build();
+        NotificationChannel channel=null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            channel = new NotificationChannel(
+                    "service",
+                    "My Foreground Service",
+                    NotificationManager.IMPORTANCE_HIGH);
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+        Notification serviceNotification = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            serviceNotification = new Notification.Builder(context,"service")
+                    .setSmallIcon(com.google.android.material.R.drawable.notification_icon_background)
+                    .setContentTitle("Digital AppLocker")
+                    .setContentText("Digital AppLocker is monitoring this device")
+                    .setPriority(Notification.PRIORITY_DEFAULT)
+                    .build();
+
+        }
+        else
+        {
+            serviceNotification = new Notification.Builder(context)
+                    .setSmallIcon(com.google.android.material.R.drawable.notification_icon_background)
+                    .setContentTitle("Digital AppLocker")
+                    .setContentText("Digital AppLocker is monitoring this device")
+                    .setPriority(Notification.PRIORITY_DEFAULT)
+                    .build();
+
+        }
         NotificationManagerCompat manager = NotificationManagerCompat.from(context);
         manager.notify(1,serviceNotification);
         startForeground(1, serviceNotification);
