@@ -1,5 +1,9 @@
 package com.digitalapps.digitalapplocker;
 
+/*
+* Shows process list using usage statistics. Debug purposes only.
+* To be removed
+*/
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.usage.UsageStats;

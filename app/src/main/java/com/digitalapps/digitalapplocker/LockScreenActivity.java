@@ -1,5 +1,15 @@
 package com.digitalapps.digitalapplocker;
+/*
+*
+* The lock screen is drawn when an app to be locked is opened by user.
+* It blocks the app from viewing on screen.
+* If a password is allowed, it prompts for the password and if correct, allows user to continue.
+* In all other cases, it does not allow user to access the app.
+* If user tries to close this Activity, forces android to go back to home, 'closing' the locked app.
+* ProtectorActivity is another variant of this Activity but is used only for this app.
+*/
 
+//imports
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ComponentName;
@@ -21,8 +31,12 @@ public class LockScreenActivity extends AppCompatActivity implements AppLockerIn
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lock_screen);
+
+        //connect to the service and inform it lock screen is active.
         serviceConnect(new Intent(this,AppLockerService.class));
         ServiceThread.LOCK_SCREEN_ACTIVE=true;
+
+        //get the intent that created and and look for a password. Enable or disable prompt accordingly.
         Intent i = getIntent();
         int pwdAvailable = (int) i.getExtras().get("PwdAvailable");
 
@@ -41,10 +55,13 @@ public class LockScreenActivity extends AppCompatActivity implements AppLockerIn
         }
     }
 
+    //This gets called when a unlock button is enabled and pressed. If password is correct, allows user to continue to app
     public void unlock(View v) {
         EditText pwdbox = findViewById(R.id.UnlockPassword);
         String password = pwdbox.getText().toString();
         if(password.equals(this.password)) {
+
+            //Sets the app as unlocked in the Service Thread and a global to prevent homescreen from called.
             ServiceThread.currentlyUnlockedApp=(String) getIntent().getExtras().get("packagename");
             ALLOWED=1;
             this.finish();
@@ -77,6 +94,9 @@ public class LockScreenActivity extends AppCompatActivity implements AppLockerIn
 
     @Override
     protected void onPause() {
+
+        //This gets called if user tries to close it without giving a correct password(if allowed).
+        //It simply calls a homescreen activity so the locked app is no longer visible.
         if(ALLOWED==0) {
             Intent intent = new Intent(Intent.ACTION_MAIN);
             intent.addCategory(Intent.CATEGORY_HOME);

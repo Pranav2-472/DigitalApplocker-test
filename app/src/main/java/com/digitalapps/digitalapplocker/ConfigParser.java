@@ -1,5 +1,7 @@
 package com.digitalapps.digitalapplocker;
-
+/*
+ * This is the configuration parser. This handles the creation of config objects from XML and vice versa.
+ */
 
 import android.util.Xml;
 
@@ -14,6 +16,8 @@ import java.util.ArrayList;
 public class ConfigParser {
     private final File configFile;
     public static ConfigParser currentInstance;
+
+    //generates a parser instance. It checks for a valid config file in filename. If not, it creates a skeleton.
     public ConfigParser(String filename) {
         currentInstance=this;
         configFile=new File(filename);
@@ -41,6 +45,8 @@ public class ConfigParser {
             currentInstance=null;
         }
     }
+
+    //generates a configuration XML file skeleton for further entry.
     private void init() {
 
         try {
@@ -59,6 +65,8 @@ public class ConfigParser {
         }
 
     }
+
+    //writes the config XML file with the data from config object. This is how the app data is saved.
     public void writeConfig(Config config) {
         try {
             FileWriter writer = new FileWriter(configFile,false);
@@ -99,6 +107,9 @@ public class ConfigParser {
             e.printStackTrace();
         }
     }
+
+    //Reads the config XML file and generates a config object. This is how the app retrieves saved data.
+    //Runs at initialization
     public Config readConfig() {
         XmlPullParser parser = Xml.newPullParser();
         int event = 0;

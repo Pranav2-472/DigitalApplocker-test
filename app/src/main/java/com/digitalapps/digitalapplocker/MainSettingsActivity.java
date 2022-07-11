@@ -1,4 +1,8 @@
 package com.digitalapps.digitalapplocker;
+/*
+* Simply the settings screen of the app.
+* It has an option to set the master password.
+*/
 
 import androidx.appcompat.app.AppCompatActivity;
 

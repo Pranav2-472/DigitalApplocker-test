@@ -1,7 +1,10 @@
 package com.digitalapps.digitalapplocker;
 
-
-import java.sql.Time;
+/*
+* This is an App object. In service thread and config object, apps info is handled as instances of this.
+* This is used to store information about an app - which is the package name, starting time to be locked and ending time until app is locked.
+* Completely custom implementation, no further documentation provided.
+*/
 
 public class App {
     public static class TimeSet {

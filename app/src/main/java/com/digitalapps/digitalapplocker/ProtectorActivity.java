@@ -1,5 +1,8 @@
 package com.digitalapps.digitalapplocker;
-
+/*
+*
+* This is a variant of LockScreenActivity. See LockscreenActivity.java
+*/
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ComponentName;

@@ -1,5 +1,11 @@
 package com.digitalapps.digitalapplocker;
 
+/*
+* This is the Main Activity of the app.. it launches when the android app is launched.
+* Uses packageManager to list application and also a service thread to manage locking system
+* */
+
+//imports
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.ComponentName;
 import android.content.Intent;
@@ -19,8 +25,11 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
+    //These variables hold the Service Connection(used for Foreground Service) and Communication handler between Activity and Service
     AppLockerService.CommsHandler commsHandler = null;
     ServiceConnection connection;
+
+    //To check whether the user entered the correct master password
     public static boolean UNLOCKED=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,11 +37,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-
+        //This little snippet gets installed apps on android < 11
         PackageManager manager = getPackageManager();
         List<ApplicationInfo> applist = manager.getInstalledApplications(PackageManager.GET_META_DATA);
 
-        //placeholder code
+
         int i=0;
         LinearLayout layout = findViewById(R.id.mainlayout);
         Button btn3 = new Button(this);
@@ -60,6 +69,10 @@ public class MainActivity extends AppCompatActivity {
             layout.addView(tv,new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,150));
             i++;
         }
+
+
+        //Debug button to ping Service - disabled
+
         /*Button btn = new Button(this);
         btn.setText("Click to ping");
         btn.setOnClickListener(v -> {
@@ -73,14 +86,21 @@ public class MainActivity extends AppCompatActivity {
         });
         layout.addView(btn2,new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,100));
         */
-        //make sure to check if service already exist
+
+
+
+
+        //Start the main service
         Intent intent = new Intent(this,AppLockerService.class);
         startService(intent);
     }
     @Override
     public void onStart() {
+        //create intent and connect to the foreground service started
         Intent intent = new Intent(this, AppLockerService.class);
         serviceConnect(intent);
+
+
         new Thread(() -> {
             try {
                 Thread.sleep(100);
@@ -92,9 +112,13 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(new Intent(this,ProtectorActivity.class));
             });
         }).start();
+
+
         super.onStart();
     }
 
+
+    //create and bind to Foreground Service
     private void serviceConnect(Intent intent) {
         connection = new ServiceConnection() {
             @Override
@@ -110,16 +134,21 @@ public class MainActivity extends AppCompatActivity {
         bindService(intent,connection,BIND_IMPORTANT);
     }
 
+
     public void ping(View v) {
         if(commsHandler!=null) {
             commsHandler.command(AppLockerService.SEND_PING);
         }
     }
+
+
     @Override
     protected void onStop() {
         unbindService(connection);
         super.onStop();
     }
+
+
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
